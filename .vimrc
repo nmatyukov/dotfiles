@@ -1,16 +1,18 @@
 source ~/.vim/vimrc
 
-
 " Make it beautiful - colors and fonts
 
 " http://ethanschoonover.com/solarized/vim-colors-solarized
 " color solarized
 " set background=dark
 color wombat256
+" set background=light
+" color solarized
 
 " Colorscheme for vimdiff
 if &diff
   colorscheme wombat256
+  " color solarized
 endif
 
 highlight DiffDelete ctermfg=160 ctermbg=230
@@ -28,3 +30,5 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 " Eclim and YouCompleteMe
 let g:EclimCompletionMethod = 'omnifunc'
+
+nnoremap <silent> <C-l> :CtrlPTag<CR>

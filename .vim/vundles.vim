@@ -10,8 +10,10 @@
 " Filetype off is required by vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle (required)
 Bundle "gmarik/vundle"
@@ -102,7 +104,6 @@ Bundle "vim-scripts/AutoTag.git"
 Bundle "vim-scripts/lastpos.vim"
 Bundle "vim-scripts/sudo.vim"
 Bundle "xsunsmile/showmarks.git"
-Bundle "terryma/vim-multiple-cursors"
 "vim-misc is required for vim-session
 Bundle "xolox/vim-misc"
 Bundle "xolox/vim-session"
@@ -126,7 +127,6 @@ Bundle "chrisbra/color_highlight.git"
 Bundle "skwp/vim-colors-solarized"
 Bundle "bling/vim-airline.git"
 Bundle "vim-scripts/TagHighlight.git"
-Bundle "bogado/file-line.git"
 " Me. For non GUI
 Bundle "godlygeek/csapprox"
 
@@ -157,12 +157,14 @@ Bundle "christoomey/vim-tmux-navigator"
 Bundle "danchoi/rb_nav"
 Bundle "ngmy/vim-rubocop"
 
+call vundle#end()
+
 " Customization
 " The plugins listed in ~/.vim/.vundles.local will be added here to
 " allow the user to add vim plugins to yadr without the need for a fork.
-if filereadable(expand("~/.yadr/vim/.vundles.local"))
-  source ~/.yadr/vim/.vundles.local
-endif
+" if filereadable(expand("~/.yadr/vim/.vundles.local"))
+"   source ~/.yadr/vim/.vundles.local
+" endif
 
 "Filetype plugin indent on is required by vundle
 filetype plugin indent on

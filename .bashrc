@@ -3,7 +3,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -28,7 +31,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -79,25 +82,29 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-
-	alias gs='git status '
-	alias ga='git add '
-	alias gb='git branch '
-	alias gc='git commit'
-	alias gd='git diff'
-	alias go='git checkout '
-	alias gk='gitk --all&'
-	alias gx='gitx --all'
-
-	alias got='git '
-	alias get='git '
 fi
 
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# development
 alias ide='vim.nox'
+
+alias tmux='TERM=xterm-256color tmux'
+alias tmxn='TERM=xterm-256color tmux new -s'
+alias tmxa='TERM=xterm-256color tmux a -t'
+alias tmxl='TERM=xterm-256color tmux ls'
+
+alias cruby='ctags -R --languages=ruby --exclude=.git --exclude=log .'
+alias cgems='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
+
+alias gst='git status'
+alias ga='git add'
+alias gm='git commit -m'
+alias hst='history | grep'
+alias paux='ps aux | grep'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -115,10 +122,18 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-source ~/.nvm/nvm.sh
+export NVM_DIR="/home/quant/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
